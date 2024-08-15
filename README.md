@@ -6,6 +6,14 @@ It has been tested with version 0.48.0.
 
 ## Getting started
 
+Make sure you have the sandbox installed. You can find install instructions [here](https://docs.aztec.network/guides/developer_guides/getting_started/quickstart).
+
+```bash
+aztec start --sandbox
+```
+
+Then:
+
 ```bash
 cd my-vite-app
 yarn
