@@ -1,0 +1,28 @@
+{
+  "name": "my-vite-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf node_modules/.vite dist",
+    "postinstall": "patch-package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.3.0",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "@aztec/aztec.js": "^0.48.0",
+    "@aztec/circuits.js": "^0.48.0",
+    "buffer": "^6.0.3",
+    "node-stdlib-browser": "^1.2.0",
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "vite-plugin-resolve": "^2.5.2"
+  }
+}
