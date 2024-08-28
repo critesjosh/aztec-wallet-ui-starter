@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import resolve from "vite-plugin-resolve";
 
-const aztecVersion = "0.48.0";
+const aztecVersion = "0.51.0";
 
 export default defineConfig({
     plugins: [
