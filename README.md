@@ -2,7 +2,7 @@
 
 This repo contains boilerplate configuration to get the PXE running in a browser.
 
-It has been tested with version 0.48.0.
+It has been tested with version 0.51.0.
 
 ## Getting started
 
