@@ -120,6 +120,14 @@
     sha3 "^2.1.4"
     zod "^3.22.4"
 
+"@aztec/noir-contracts.js@^0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@aztec/noir-contracts.js/-/noir-contracts.js-0.51.0.tgz#b89c03fb9178735cb1d2b4eabb39e3b906ea0367"
+  integrity sha512-Falg46akhYbJFvH9KEBH5xoG6svOOa5/NiHKwlwZ1OwD+GSA9bj5yFDoVI81I61tD5jIzhRrlusSrBiXWhAOuw==
+  dependencies:
+    "@aztec/aztec.js" "0.51.0"
+    tslib "^2.4.0"
+
 "@aztec/protocol-contracts@0.51.0":
   version "0.51.0"
   resolved "https://registry.yarnpkg.com/@aztec/protocol-contracts/-/protocol-contracts-0.51.0.tgz#35f472ba8561b242037ada1b59c0b54e48d3ad79"

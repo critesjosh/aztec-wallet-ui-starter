@@ -1,7 +1,10 @@
 import './style.css'
-import { AccountWallet, CompleteAddress, ContractDeployer, createDebugLogger, Fr, PXE, waitForPXE, TxStatus, createPXEClient, getContractInstanceFromDeployParams, DebugLogger } from "@aztec/aztec.js";
+import { AccountWallet, CompleteAddress, ContractDeployer, createDebugLogger, Fr, PXE, waitForPXE, TxStatus, createPXEClient, getContractInstanceFromDeployParams, DebugLogger, AccountWalletWithSecretKey } from "@aztec/aztec.js";
 import { getSchnorrAccount } from '@aztec/accounts/schnorr';
 import { deriveSigningKey } from '@aztec/circuits.js';
+import {
+  TokenContract
+} from "@aztec/noir-contracts.js"
 
 
 const setupSandbox = async () => {
@@ -12,7 +15,6 @@ const setupSandbox = async () => {
 };
 
 try {
-  console.log(process.env)
   let pxe = await setupSandbox();
   let accounts = await pxe.getRegisteredAccounts()
   console.log(accounts)
@@ -22,7 +24,9 @@ try {
   const button = document.createElement('button');
   button.innerText = 'Click me!';
   button.addEventListener('click', async () => {
-    await deploySchnorrAccount(pxe);
+
+    let { wallet } = await deploySchnorrAccount(pxe);
+    await deployTokenContract(pxe, wallet);
   });
 
   document.body.appendChild(button);
@@ -31,14 +35,20 @@ try {
 }
 
 
-async function deploySchnorrAccount(pxe: PXE) {
-
+async function deploySchnorrAccount(pxe: PXE): Promise<{ wallet: AccountWalletWithSecretKey }> {
   let secretKey = Fr.random();
   let salt = Fr.random();
-
   let schnorrAccount = await getSchnorrAccount(pxe, secretKey, deriveSigningKey(secretKey), salt);
-  // const { address, publicKeys, partialAddress } = schnorrAccount.getCompleteAddress();
+  // let completeAddress = schnorrAccount.getCompleteAddress();
   let wallet = await schnorrAccount.register();
-  let txReceipt = await schnorrAccount.deploy().getReceipt();
+  let txReceipt = await schnorrAccount.deploy().wait();
   console.log(wallet, txReceipt);
+  return {
+    wallet
+  }
+}
+async function deployTokenContract(pxe: PXE, wallet: AccountWalletWithSecretKey) {
+  let token = await TokenContract.deploy(wallet, wallet.getAddress(), "test", "TST", 18).send().wait();
+  let bal = await token.contract.methods.balance_of_public(wallet.getAddress()).simulate()
+  console.log(bal)
 }
